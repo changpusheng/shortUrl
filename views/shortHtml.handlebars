@@ -4,14 +4,14 @@
     class="card-img-top" alt="短網址">
 </div>
 
-<form action="/" method="POST" style="margin:20px auto;">
-  <div class="input-group mb-3">
-    <input type="text" class="form-control" placeholder="輸入想要縮短的網址" aria-label="Recipient's username"
-      aria-describedby="button-addon2" name="originalUrl">
-    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">送出</button>
-  </div>
-</form>
 
-<h5>
-  <a href="http://localhost:3000/JBSURL/{{shortUrl}}" target="_blank">http://localhost:3000/JBSURL/{{shortUrl}}</a>
-</h5>
+<div class="d-flex input-group mb-3" style="margin:50px auto;">
+  <div>
+    <a href={{originalUrl}} target="_blank"><input type="text" class="form-control" id="shortValue"
+        placeholder="http://localhost:3000/JBSURL/{{shortUrl}}" name="copyUrl" size="33" style="cursor: pointer;">
+    </a>
+  </div>
+  <div>
+    <button class="btn btn-outline-secondary text-nowrap" onclick="copyText()">copy</button>
+  </div>
+</div>

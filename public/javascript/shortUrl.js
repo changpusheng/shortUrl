@@ -5,7 +5,7 @@ function randomChart(arr) {
 
 function shortUrl() {
   const chart = 'abcdefghijklmnopqrstuvwxyzABCDEFQHIJKLMNOPQRSTUVWXYZ0123456789'
-  let collection = chart.split('')
+  const collection = chart.split('')
 
   let password = ''
   for (let i = 0; i < 5; i++) {

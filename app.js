@@ -3,9 +3,10 @@ const app = express()
 const { engine } = require('express-handlebars')
 const port = 3000
 const mongoose = require('mongoose')
+const { findOne } = require('./models/shortHtmlCode')
 const db = mongoose.connection
 const shortHtmlCode = require('./models/shortHtmlCode')
-const shortUrl = require('./shortUrl')
+const shortUrl = require('./public/javascript/shortUrl')
 
 db.on('error', () => {
   console.log('mongoose error' + error)
@@ -26,20 +27,31 @@ app.get('/', (req, res) => {
   res.render('home')
 })
 
+//比對資料庫原始網址original，如果false新增資料，true 帶入該筆short的資料
 app.post('/', (req, res) => {
   const originalUrl = req.body.originalUrl
   const short = shortUrl()
-  shortHtmlCode.create({
-    original: originalUrl,
-    short: short
+  shortHtmlCode.where({ original: originalUrl }).findOne().lean().then(item => {
+    if (item.original === originalUrl) {
+      res.render('shortHtml', { shortUrl: item.short, originalUrl: item.original })
+    }
+  }).catch(() => {
+    shortHtmlCode.create({
+      original: originalUrl,
+      short: short
+    })
+    res.render('shortHtml', { shortUrl: short, originalUrl: originalUrl })
   })
-  console.log(short)
-  console.log(originalUrl)
-  res.render('shortHtml', { shortUrl: short, originalUrl })
 })
 
+//比對資料short代碼，如果true轉跳網址，如果false跳alert
 app.get('/JBSURL/:short', (req, res) => {
-  res.redirect('https://tw.yahoo.com/')
+  const shortParms = req.params.short
+  shortHtmlCode.where({ short: `${shortParms}` }).findOne().then(item => {
+    res.redirect(item.original)
+  }).catch(error => {
+    console.log('404' + error)
+  })
 })
 
 app.listen(port, () => {
