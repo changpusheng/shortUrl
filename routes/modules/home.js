@@ -12,9 +12,7 @@ router.post('/', (req, res) => {
   const originalUrl = req.body.originalUrl
   const short = shortUrl()
   shortHtmlCode.where({ original: originalUrl }).findOne().lean().then(item => {
-    if (item.original === originalUrl) {
-      res.render('shortHtml', { shortUrl: item.short, originalUrl: item.original })
-    }
+    res.render('shortHtml', { shortUrl: item.short, originalUrl: item.original })
   }).catch(() => {
     shortHtmlCode.create({
       original: originalUrl,
