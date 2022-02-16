@@ -59,10 +59,39 @@ mongoose connected!
 </li>
 </ul>
 
+預設帳號密碼:
+    const users = [
+ {
+   firstName: 'Tony',
+   email: 'tony@stark.com',
+   password: 'iamironman'
+ },
+ {
+   firstName: 'Steve',
+   email: 'captain@hotmail.com',
+   password: 'icandothisallday'
+ },
+ {
+   firstName: 'Peter',
+   email: 'peter@parker.com',
+   password: 'enajyram'
+ },
+ {
+   firstName: 'Natasha',
+   email: 'natasha@gamil.com',
+   password: '*parol#@$!'
+ },
+ {
+   firstName: 'Nick',
+   email: 'nick@shield.com',
+   password: 'password'
+ }
+]
+    
 修改部分:
 <ul>
 <li>
-刪除多餘的程式碼
+
 </li>
 </ul>
 
